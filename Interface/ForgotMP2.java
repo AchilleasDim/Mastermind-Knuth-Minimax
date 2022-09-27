@@ -192,7 +192,7 @@ public class ForgotMP2 extends javax.swing.JFrame {
     private void sendNCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendNCButtonActionPerformed
         // TODO add your handling code here:
    
-        String from = "mastermindgame2020@gmail.com";
+        String from = "-";//removed
         String pass = ForgotMP1.getPass();
         // list of recipient email addresses
         String to = getPlayersEmail(); 
