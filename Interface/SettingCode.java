@@ -1,0 +1,351 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Interface;
+
+import Controller.Encryption;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import Controller.Player;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author achilleas
+ * this class allows the codemaker to set the code in the multiplayer mode
+ */
+public class SettingCode extends javax.swing.JFrame {
+
+    private final JButton[] settingButtons = new JButton[4];
+    private final Player activePlayer1;
+    private final Player activePlayer2;
+    private final Player codemaker;
+    private final Player codebraker;
+    private String code;
+    private int timesPlayed = 0;
+    private final long addedTimePerHint;
+    private String[] firstRoundResults = new String[4];
+    private final boolean allowHints;
+
+    /**
+     * Creates new form SettingCode
+     * @param activeplayer
+     * @param activeplayer2
+     * @param codemaker
+     * @param codebraker
+     * @param timesPlayed
+     * @param firstRoundResults
+     * @param allowHints
+     * @param addedTimePerHint
+     */
+    public SettingCode(Player activeplayer, Player activeplayer2, Player codemaker,
+            Player codebraker, int timesPlayed, String[] firstRoundResults, Boolean allowHints, long addedTimePerHint) {
+
+        initComponents();
+
+        activePlayer1 = activeplayer;
+        activePlayer2 = activeplayer2;
+        this.allowHints = allowHints;
+        this.addedTimePerHint = addedTimePerHint;
+        this.codemaker = codemaker;
+        this.codebraker = codebraker;
+        this.timesPlayed = timesPlayed;
+        this.firstRoundResults = firstRoundResults;
+        
+        //sets the header
+        Title.setText(Encryption.decrypt(codemaker.getUsername()) + " you may now set the code");
+
+        
+        //this loop creates the JButtons that the player will fill with colours
+       
+        for (int row = 0; row < settingButtons.length; row++) {
+
+            settingButtons[row] = new JButton();
+
+            //adds the ActionListener
+            settingButtons[row].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println(getSelectedButtonText(buttonGroup1));
+
+                    /*
+                    this switch sets the colours according to the the
+                    selected button from buttongroup "buttonGroup1" , containing
+                    all the possible colours.
+                    */
+                    
+                    switch (getSelectedButtonText(buttonGroup1)) {
+                        case "Green":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.GREEN);
+                            break;
+                        case "Red":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.RED);
+                            break;
+                        case "Yellow":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.YELLOW);
+                            break;
+                        case "Blue":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.BLUE);
+                            break;
+                        case "Pink":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.PINK);
+                            break;
+                        case "Black":
+                            ((JButton) e.getSource()).setBackground(java.awt.Color.BLACK);
+                            break;
+                    }
+                }
+            });
+            //adds each button the JPanel Buttons
+            Buttons.add(settingButtons[row]);
+        }
+
+        /*
+        If the second round is to be played , where the roles are reversed , this
+        if statement makes sure to prevent the players from exitting so 
+        as to complete the whole match.
+        */
+        if (timesPlayed == 1) {
+            backButton.setVisible(false);
+        }
+
+    }
+
+    public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        settingBoard = new javax.swing.JPanel();
+        Title = new javax.swing.JLabel();
+        GreenButton = new javax.swing.JRadioButton();
+        RedButton = new javax.swing.JRadioButton();
+        YellowButton = new javax.swing.JRadioButton();
+        BlueButton = new javax.swing.JRadioButton();
+        PinkButton = new javax.swing.JRadioButton();
+        BlackButton = new javax.swing.JRadioButton();
+        playButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        Buttons = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        settingBoard.setBackground(new java.awt.Color(255, 255, 204));
+
+        Title.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        buttonGroup1.add(GreenButton);
+        GreenButton.setSelected(true);
+        GreenButton.setText("Green");
+
+        buttonGroup1.add(RedButton);
+        RedButton.setText("Red");
+
+        buttonGroup1.add(YellowButton);
+        YellowButton.setText("Yellow");
+
+        buttonGroup1.add(BlueButton);
+        BlueButton.setText("Blue");
+
+        buttonGroup1.add(PinkButton);
+        PinkButton.setText("Pink");
+
+        buttonGroup1.add(BlackButton);
+        BlackButton.setText("Black");
+
+        playButton.setText("Play");
+        playButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        Buttons.setBackground(new java.awt.Color(255, 255, 204));
+        Buttons.setLocation(new java.awt.Point(0, 1000));
+        Buttons.setMinimumSize(new java.awt.Dimension(100, 100));
+        Buttons.setLayout(new java.awt.GridLayout(1, 4, 13, 0));
+
+        javax.swing.GroupLayout settingBoardLayout = new javax.swing.GroupLayout(settingBoard);
+        settingBoard.setLayout(settingBoardLayout);
+        settingBoardLayout.setHorizontalGroup(
+            settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingBoardLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Buttons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingBoardLayout.createSequentialGroup()
+                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(settingBoardLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(settingBoardLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(GreenButton)
+                            .addComponent(RedButton)
+                            .addComponent(YellowButton))
+                        .addGap(179, 179, 179)
+                        .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(settingBoardLayout.createSequentialGroup()
+                                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(PinkButton)
+                                    .addComponent(BlackButton))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(backButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(playButton, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(settingBoardLayout.createSequentialGroup()
+                                .addComponent(BlueButton)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(41, 41, 41))
+        );
+        settingBoardLayout.setVerticalGroup(
+            settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingBoardLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(Buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GreenButton)
+                    .addComponent(BlueButton))
+                .addGap(29, 29, 29)
+                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RedButton)
+                    .addComponent(PinkButton)
+                    .addComponent(playButton))
+                .addGap(24, 24, 24)
+                .addGroup(settingBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(YellowButton)
+                    .addComponent(BlackButton)
+                    .addComponent(backButton))
+                .addGap(31, 31, 31))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(settingBoard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(settingBoard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
+        // TODO add your handling code here:
+
+        code = "";
+        boolean valid = true;
+
+        /*
+        This loop checks the colour of each peg so as to covert the code in
+        a suitable form.
+        */
+        for (int i = 0; i < settingButtons.length; i++) {
+
+                //0 = Green
+            if (settingButtons[i].getBackground().equals(java.awt.Color.GREEN)) {
+                code += "0";
+                //1 = Red
+            } else if (settingButtons[i].getBackground().equals(java.awt.Color.RED)) {
+                code += "1";
+                //2 = Yellow
+            } else if (settingButtons[i].getBackground().equals(java.awt.Color.YELLOW)) {
+                code += "2";
+                //3 = Blue
+            } else if (settingButtons[i].getBackground().equals(java.awt.Color.BLUE)) {
+                code += "3";
+                //4 = Pink
+            } else if (settingButtons[i].getBackground().equals(java.awt.Color.PINK)) {
+                code += "4";
+                //5 = Black
+            } else if (settingButtons[i].getBackground().equals(java.awt.Color.BLACK)) {
+                code += "5";
+                //if a position has been left empty
+            } else {
+                valid = false;
+            }
+
+        }
+
+        //if all positions have been filled
+        if(valid){
+        
+        //initiates the game 
+        MastermindTable screen = new MastermindTable(activePlayer1, activePlayer2, codemaker,
+                codebraker, code, timesPlayed, firstRoundResults, allowHints, addedTimePerHint);
+        screen.setVisible(true);
+        this.setVisible(false);
+        }else{
+               JOptionPane.showMessageDialog(null, "Please enter a valid code", "" ,  JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_playButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+
+        MultiplayerPreGame screen = new MultiplayerPreGame(activePlayer1, activePlayer2);
+        screen.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_backButtonActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton BlackButton;
+    private javax.swing.JRadioButton BlueButton;
+    private javax.swing.JPanel Buttons;
+    private javax.swing.JRadioButton GreenButton;
+    private javax.swing.JRadioButton PinkButton;
+    private javax.swing.JRadioButton RedButton;
+    private javax.swing.JLabel Title;
+    private javax.swing.JRadioButton YellowButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton playButton;
+    private javax.swing.JPanel settingBoard;
+    // End of variables declaration//GEN-END:variables
+}
