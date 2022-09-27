@@ -176,8 +176,8 @@ public class ForgotMP1 extends javax.swing.JFrame {
                 this.setVisible(false);
 
                 
-                final String from = "mastermindgame2020";
-                pass = "Admin697177";
+                final String from = "-"; //removed
+                pass = "-";//removed
                 // list of recipient email addresses
                 String to = getPlayersEmail(); 
                 String subject = "Resetting your password for Mastermind";
